@@ -59,4 +59,5 @@ after_success:
 - export RELEASE_ZIPNAME=${PLUGIN_NAME}.zip
 - echo "Uploading ${RELEASE_ZIPNAME} to QGIS Dev..."
 - scp ${PLUGIN_NAME}.zip qgisrepoguest:${UPLOADS}/${RELEASE_ZIPNAME}
-- ssh qgisrepoguest "${UPDATER} update --dev --role DesktopBasic,DesktopDeveloper --git-hash ${TRAVIS_COMMIT} ${RELEASE_ZIPNAME}"
+- export GIT_REV=$(git rev-parse --short HEAD)
+- ssh qgisrepoguest "${UPDATER} update --dev --role DesktopPartner,DesktopDeveloper --git-hash ${GIT_REV} ${RELEASE_ZIPNAME}"
