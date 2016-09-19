@@ -56,6 +56,7 @@ after_success:
 - docker-compose exec qgis-testing-environment sh -c "cd /tests_directory && paver package --test"
 #- export PLUGIN_VERSION=$(grep -e '^version=.*$' geoserverexplorer/metadata.txt | grep -e '[0-9].*$' -o)
 #- export RELEASE_ZIPNAME=${PLUGIN_NAME}-${PLUGIN_VERSION}-`date +%Y%m%d%H%I`-${TRAVIS_COMMIT}.zip
-- echo "Uploading ${PLUGIN_NAME}.zip to QGIS Dev..."
-- scp ${PLUGIN_NAME}.zip qgisrepoguest:${UPLOADS}/${PLUGIN_NAME}.zip
+- export RELEASE_ZIPNAME=${PLUGIN_NAME}.zip
+- echo "Uploading ${RELEASE_ZIPNAME} to QGIS Dev..."
+- scp ${PLUGIN_NAME}.zip qgisrepoguest:${UPLOADS}/${RELEASE_ZIPNAME}
 - ssh qgisrepoguest "${UPDATER} update --dev --role DesktopBasic,DesktopDeveloper --git-hash ${TRAVIS_COMMIT} ${RELEASE_ZIPNAME}"
